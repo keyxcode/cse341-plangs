@@ -46,3 +46,12 @@ fun date_to_string(date: (int*int*int)) =
     let val date_lookups = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     in get_nth(date_lookups, #2 date) ^ " " ^ Int.toString(#3 date) ^ ", " ^ Int.toString(#1 date)
     end
+
+
+fun number_before_reaching_sum(sum: int, nums: int list) = 
+    let val sum_minus_head = sum - hd nums
+    in 
+        if sum_minus_head <= 0
+        then 0
+        else 1 + number_before_reaching_sum(sum_minus_head, tl nums)
+    end
