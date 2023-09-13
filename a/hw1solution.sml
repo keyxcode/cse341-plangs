@@ -40,3 +40,9 @@ fun  get_nth(strings: string list, n: int) =
     if n = 1
     then hd strings
     else get_nth(tl strings, n - 1)
+
+
+fun date_to_string(date: (int*int*int)) =
+    let val date_lookups = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    in get_nth(date_lookups, #2 date) ^ " " ^ Int.toString(#3 date) ^ ", " ^ Int.toString(#1 date)
+    end
