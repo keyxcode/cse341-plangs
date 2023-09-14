@@ -133,10 +133,13 @@ fun reasonable_date(date: int*int*int) =
         val year = #1 date 
         val month = #2 date
         val day = #3 date
+        val is_leap = is_leap_year(year)
     in
         if year < 1
         then false
         else if month < 1 orelse month > 12
+        then false
+        else if day < 1 orelse day > num_days_in_month(month, is_leap)
         then false
         else true
     end
