@@ -85,29 +85,25 @@ fun oldest(dates: (int*int*int) list) =
         end
 
 
-fun dates_are_equal(date1: int*int*int, date2: int*int*int) =
-    if #1 date1 = #1 date2 andalso #2 date1 = #2 date2 andalso #3 date1 = #3 date2
-    then true
-    else false
-
-
-fun remove_duplicates(dates: (int*int*int) list) =
-    if null dates
+fun remove_duplicated_months(months: int list) =
+    if null months
     then []
     else
-        let val unique_tail = remove_duplicates(tl dates)
+        let val unique_tail = remove_duplicated_months(tl months)
         in
             if null unique_tail
-            then [hd dates]
-            else if dates_are_equal(hd dates, hd unique_tail)
+            then [hd months]
+            else if hd months = hd unique_tail
             then unique_tail
-            else (hd dates) :: (unique_tail)
+            else (hd months) :: (unique_tail)
         end
 
 
 (* fun number_in_months_challenge(dates: (int*int*int) list, months: int list) =
-    0
+    let val unique_dates = remove_duplicates(dates) 
+    in number_in_months(unique_dates, months)
+    end *)
 
 
-fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
+(* fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
     [0] *)
