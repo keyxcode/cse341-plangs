@@ -46,6 +46,9 @@ val test12b = dates_in_months_challenge([(2012,2,28),(2012,2,28),(2011,3,31),(20
 
 val test_num_days_in_month = num_days_in_month(3, false) = 31
 
+val test_is_leap_year = is_leap_year(2000) = true
+val test_is_leap_year = is_leap_year(1900) = false
+
 val test13 = reasonable_date(2012,2,28) = true
 val test13b = reasonable_date(2012,2,33) = false
 val test13c = reasonable_date(2012,13,30) = false

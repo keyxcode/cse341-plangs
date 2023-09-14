@@ -122,6 +122,10 @@ fun num_days_in_month(month: int, is_leap_year: bool) =
     end  
 
 
+fun is_leap_year(year: int) =
+    true
+
+
 fun reasonable_date(date: int*int*int) =
     let 
         val year = #1 date 
