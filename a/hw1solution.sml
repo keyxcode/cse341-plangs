@@ -109,3 +109,7 @@ fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
     let val unique_months = remove_duplicated_months(months) 
     in dates_in_months(dates, unique_months)
     end
+
+
+fun reasonable_date(date: int*int*int) =
+    true

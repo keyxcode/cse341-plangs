@@ -43,3 +43,8 @@ val test_remove_duplicated_months = remove_duplicated_months([1,1,2,3]) = [1,2,3
 
 val test12a = number_in_months_challenge([(2012,2,28),(2012,2,28),(2011,3,31),(2011,4,28)], [2,2,2,3]) = 3
 val test12b = dates_in_months_challenge([(2012,2,28),(2012,2,28),(2011,3,31),(2011,4,28)], [2,2,2,3]) = [(2012,2,28),(2012,2,28),(2011,3,31)]
+
+val test13 = reasonable_date(2012,2,28) = true
+val test13b = reasonable_date(2012,2,33) = false
+val test13c = reasonable_date(2012,13,30) = false
+val test13d = reasonable_date(~ 100,13,30) = false
