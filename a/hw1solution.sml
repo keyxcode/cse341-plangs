@@ -99,10 +99,10 @@ fun remove_duplicated_months(months: int list) =
         end
 
 
-(* fun number_in_months_challenge(dates: (int*int*int) list, months: int list) =
-    let val unique_dates = remove_duplicates(dates) 
-    in number_in_months(unique_dates, months)
-    end *)
+fun number_in_months_challenge(dates: (int*int*int) list, months: int list) =
+    let val unique_months = remove_duplicated_months(months) 
+    in number_in_months(dates, unique_months)
+    end
 
 
 (* fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
