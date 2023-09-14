@@ -111,5 +111,26 @@ fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
     end
 
 
+fun num_days_in_month(month: int, is_leap_year: bool) =
+    let 
+        val lookups =
+        if is_leap_year = false
+        then [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        else [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    in
+        List.nth(lookups, month - 1)
+    end  
+
+
 fun reasonable_date(date: int*int*int) =
-    true
+    let 
+        val year = #1 date 
+        val month = #2 date
+        val day = #3 date
+    in
+        if year < 1
+        then false
+        else if month < 1 orelse month > 12
+        then false
+        else true
+    end
