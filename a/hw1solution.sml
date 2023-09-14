@@ -59,13 +59,7 @@ fun number_before_reaching_sum(sum: int, nums: int list) =
 
 fun what_month(num: int) =
     let val day_lookups = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    in 
-        let val month = number_before_reaching_sum(num, day_lookups)
-        in 
-            if month = 0
-            then month + 1
-            else month 
-        end
+    in number_before_reaching_sum(num, day_lookups) + 1
     end
 
 
