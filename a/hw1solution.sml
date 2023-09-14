@@ -123,7 +123,9 @@ fun num_days_in_month(month: int, is_leap_year: bool) =
 
 
 fun is_leap_year(year: int) =
-    true
+    if year mod 400 = 0 orelse (year mod 4 = 0 andalso year mod 100 <> 0)
+    then true
+    else false
 
 
 fun reasonable_date(date: int*int*int) =
