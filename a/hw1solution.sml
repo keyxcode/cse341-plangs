@@ -1,4 +1,4 @@
-fun is_older (date1: int*int*int, date2: int*int*int) =
+fun is_older(date1: int*int*int, date2: int*int*int) =
     if (#1 date1 < #1 date2) 
         orelse ((#1 date1 = #1 date2) andalso (#2 date1 < #2 date2)) 
         orelse ((#1 date1 = #1 date2) andalso (#2 date1 = #2 date2) andalso ((#3 date1 < #3 date2)))
@@ -6,7 +6,7 @@ fun is_older (date1: int*int*int, date2: int*int*int) =
     else false
 
 
-fun number_in_month (dates: (int*int*int) list, month: int) =
+fun number_in_month(dates: (int*int*int) list, month: int) =
     if null dates
     then 0
     else
@@ -15,13 +15,13 @@ fun number_in_month (dates: (int*int*int) list, month: int) =
         else number_in_month(tl dates, month)
 
 
-fun number_in_months (dates: (int*int*int) list, months: int list) =
+fun number_in_months(dates: (int*int*int) list, months: int list) =
     if null months
     then 0
     else number_in_month(dates, hd months) + number_in_months(dates, tl months)
 
 
-fun dates_in_month (dates: (int*int*int) list, month: int) =
+fun dates_in_month(dates: (int*int*int) list, month: int) =
     if null dates
     then []
     else
@@ -30,7 +30,7 @@ fun dates_in_month (dates: (int*int*int) list, month: int) =
         else dates_in_month(tl dates, month)
 
 
-fun dates_in_months (dates: (int*int*int) list, months: int list) =
+fun dates_in_months(dates: (int*int*int) list, months: int list) =
     if null months
     then []
     else dates_in_month(dates, hd months) @ dates_in_months(dates, tl months)
@@ -83,3 +83,29 @@ fun oldest(dates: (int*int*int) list) =
             else
                 SOME(hd dates)
         end
+
+
+fun dates_are_equal(date1: int*int*int, date2: int*int*int) =
+    if #1 date1 = #1 date2 andalso #2 date1 = #2 date2 andalso #3 date1 = #3 date2
+    then true
+    else false
+
+
+fun remove_duplicates(dates: (int*int*int) list) =
+    if null dates
+    then []
+    else
+        let val unique_tail = remove_duplicates(tl dates)
+        in
+            if dates_are_equal(hd dates, hd unique_tail)
+            then unique_tail
+            else hd dates :: unique_tail
+        end
+
+
+(* fun number_in_months_challenge(dates: (int*int*int) list, months: int list) =
+    0
+
+
+fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
+    [0] *)
