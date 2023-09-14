@@ -97,9 +97,11 @@ fun remove_duplicates(dates: (int*int*int) list) =
     else
         let val unique_tail = remove_duplicates(tl dates)
         in
-            if dates_are_equal(hd dates, hd unique_tail)
+            if null unique_tail
+            then [hd dates]
+            else if dates_are_equal(hd dates, hd unique_tail)
             then unique_tail
-            else hd dates :: unique_tail
+            else (hd dates) :: (unique_tail)
         end
 
 

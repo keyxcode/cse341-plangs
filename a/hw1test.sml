@@ -42,4 +42,4 @@ val test11 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31)
 val test_equal_dates = dates_are_equal((2012,2,28),(2012,2,28)) = true
 val test_equal_dates2 = dates_are_equal((2012,2,28),(2012,3,28)) = false
 
-(* val test_remove_dups = remove_duplicates([(2012,2,28),(2012,2,28),(2011,3,31),(2011,4,28)]) = [(2012,2,28),(2011,3,31),(2011,4,28)] *)
+val test_remove_dups = remove_duplicates([(2012,2,28),(2012,2,28),(2011,3,31),(2011,4,28)]) = [(2012,2,28),(2011,3,31),(2011,4,28)]
