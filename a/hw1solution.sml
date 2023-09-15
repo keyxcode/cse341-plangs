@@ -72,11 +72,8 @@ fun oldest(dates: (int*int*int) list) =
     else
         let val oldest_tail = oldest(tl dates)
         in
-            if isSome oldest_tail
-            then
-                if is_older(hd dates, valOf oldest_tail)
-                then SOME(hd dates)
-                else oldest_tail
+            if isSome oldest_tail andalso is_older(valOf oldest_tail, hd dates)
+            then oldest_tail
             else
                 SOME(hd dates)
         end
