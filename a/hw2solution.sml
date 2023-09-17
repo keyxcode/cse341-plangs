@@ -18,6 +18,15 @@ fun all_except_option(a, xs) =
                            | SOME(ys) => SOME(x::ys)
                         end
 
+fun get_substitutions1(xss, a) =
+   case xss of
+      [] => []
+      | xs::xss' => let val substitutions = all_except_option(a, xs)
+                     in case substitutions of
+                        NONE => get_substitutions1(xss', a)
+                        | SOME(ys) => ys @ get_substitutions1(xss', a)
+                     end
+
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 (* datatype suit = Clubs | Diamonds | Hearts | Spades
