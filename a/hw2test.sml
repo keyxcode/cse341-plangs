@@ -1,11 +1,18 @@
+use "hw2solution.sml";
+
 (* Homework2 Simple Test *)
 (* These are basic test cases. Passing these tests does not guarantee that your code will pass the actual homework grader *)
 (* To run the test, add a new line to the top of this file: use "homeworkname.sml"; *)
 (* All the tests should evaluate to true. For example, the REPL should say: val test1 = true : bool *)
 
 val test1 = all_except_option ("string", ["string"]) = SOME []
+val test1b = all_except_option ("string", []) = NONE
+val test1c = all_except_option ("string", ["not_string"]) = NONE
+val test1d = all_except_option ("string", ["string", "a", "b"]) = SOME ["a", "b"]
+val test1e = all_except_option ("string", ["a", "string", "b"]) = SOME ["a", "b"]
+val test1f = all_except_option ("string", ["a", "b", "string"]) = SOME ["a", "b"]
 
-val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
+(* val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
 
 val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
 
@@ -36,4 +43,4 @@ val test13 = ((officiate([(Clubs,Jack),(Spades,Num(8))],
                          [Draw,Discard(Hearts,Jack)],
                          42);
                false) 
-              handle IllegalMove => true)
+              handle IllegalMove => true) *)

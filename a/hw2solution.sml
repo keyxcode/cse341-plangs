@@ -7,16 +7,26 @@ fun same_string(s1 : string, s2 : string) =
     s1 = s2
 
 (* put your solutions for problem 1 here *)
+fun all_except_option(a, xs) =
+   case xs of
+      [] => NONE
+      | x::xs' => if same_string(a, x)
+                  then SOME(xs')
+                  else let val tail_option = all_except_option(a, xs')
+                        in case tail_option of
+                           NONE => NONE
+                           | SOME(ys) => SOME(x::ys)
+                        end
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
-datatype suit = Clubs | Diamonds | Hearts | Spades
+(* datatype suit = Clubs | Diamonds | Hearts | Spades
 datatype rank = Jack | Queen | King | Ace | Num of int 
 type card = suit * rank
 
 datatype color = Red | Black
 datatype move = Discard of card | Draw 
 
-exception IllegalMove
+exception IllegalMove *)
 
 (* put your solutions for problem 2 here *)
