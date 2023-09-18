@@ -57,13 +57,18 @@ fun similar_names(xss, {first=f, last=l, middle=m}) =
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
-(* datatype suit = Clubs | Diamonds | Hearts | Spades
+datatype suit = Clubs | Diamonds | Hearts | Spades
 datatype rank = Jack | Queen | King | Ace | Num of int 
 type card = suit * rank
 
 datatype color = Red | Black
 datatype move = Discard of card | Draw 
 
-exception IllegalMove *)
+exception IllegalMove
 
 (* put your solutions for problem 2 here *)
+fun card_color(x, y) =
+   case x of
+   Spades => Black
+   | Clubs => Black
+   | _ => Red
