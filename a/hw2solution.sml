@@ -27,7 +27,6 @@ fun get_substitutions1(xss, a) =
                         | SOME(ys) => ys @ get_substitutions1(xss', a)
                      end
 
-
 fun get_substitutions2(xss, a) =
    let fun accumulate(xss, a, acc) = 
       case xss of
@@ -40,7 +39,6 @@ fun get_substitutions2(xss, a) =
    in
       accumulate(xss, a, [])
    end
-
 
 fun similar_names(xss, {first=f, last=l, middle=m}) =
    let 
@@ -78,3 +76,11 @@ fun card_value(x, y) =
    Num n => n
    | Ace => 11
    | _ => 10
+
+fun remove_card(cs, c, ex) =
+   case cs of
+   [] => raise ex
+   | card::cs' => if card = c
+                  then cs'
+                  else card::remove_card(cs', c, ex)
+            
