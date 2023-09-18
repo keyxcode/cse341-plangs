@@ -72,3 +72,9 @@ fun card_color(x, y) =
    Spades => Black
    | Clubs => Black
    | _ => Red
+
+fun card_value(x, y) =
+   case y of
+   Num n => n
+   | Ace => 11
+   | _ => 10
