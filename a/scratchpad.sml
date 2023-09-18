@@ -1,3 +1,3 @@
-val x = 1;
-val y = 2;
-val z = true;
+fun partial_name {first, middle, last} = first ^ " " ^ last
+
+val a = 1::[2]
