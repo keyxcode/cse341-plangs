@@ -87,4 +87,6 @@ fun remove_card(cs, c, ex) =
 fun all_same_color(cs) =
    case cs of
    [] => false
-   | _ => true
+   | _::[] => true
+   | head::(neck::rest) => card_color(head) = card_color(neck) 
+                           andalso all_same_color(neck::rest) = true 
