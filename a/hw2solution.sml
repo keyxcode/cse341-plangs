@@ -98,4 +98,19 @@ fun sum_cards(cs) =
       | x::xs' => sum_helper(xs', acc + card_value(x)) 
    in
       sum_helper(cs, 0)
-   end                         
+   end
+
+fun score(cs, goal) =
+   let 
+      val sum = sum_cards(cs)
+      fun get_prelim_score(sum, goal) = 
+         if sum > goal
+         then 3 * (sum - goal)
+         else goal - sum
+   in
+      let val prelim_score = get_prelim_score(sum, goal)
+      in if all_same_color(cs)
+         then prelim_score div 2
+         else prelim_score
+      end
+   end
