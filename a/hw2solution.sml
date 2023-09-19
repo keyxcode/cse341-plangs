@@ -86,7 +86,7 @@ fun remove_card(cs, c, ex) =
             
 fun all_same_color(cs) =
    case cs of
-   [] => false
+   [] => true
    | _::[] => true
    | head::(neck::rest) => card_color(head) = card_color(neck) 
                            andalso all_same_color(neck::rest) = true 
@@ -113,4 +113,24 @@ fun score(cs, goal) =
          then prelim_score div 2
          else prelim_score
       end
+   end
+
+fun officiate(cs, ms, g) =
+   let
+     fun helper(cards, moves, helds, goal) =
+         case moves of
+         [] => score(helds, goal)
+         | Discard c::moves' => 
+            let val remainings = remove_card(cards, c, IllegalMove)
+            in helper(cards, moves', remainings, goal)
+            end
+         | Draw::moves' =>
+            case cards of
+            [] => score(helds, goal)
+            | c::cards' => 
+               if sum_cards(helds) > goal
+               then score(helds, goal)
+               else helper(cards', moves', c::helds, goal)
+   in
+     helper(cs, ms, [], g)
    end
