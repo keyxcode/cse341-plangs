@@ -16,14 +16,12 @@ fun all_except_option(s, xs) =
                         NONE => NONE
                         | SOME(ys) => SOME(x::ys)
 
-fun get_substitutions1(xss, a) =
+fun get_substitutions1(xss, s) =
    case xss of
       [] => []
-      | xs::xss' => let val substitutions = all_except_option(a, xs)
-                     in case substitutions of
-                        NONE => get_substitutions1(xss', a)
-                        | SOME(ys) => ys @ get_substitutions1(xss', a)
-                     end
+      | xs::xss' => case all_except_option(s, xs) of
+                     NONE => get_substitutions1(xss', s)
+                     | SOME(ys) => ys @ get_substitutions1(xss', s)
 
 fun get_substitutions2(xss, a) =
    let fun accumulate(xss, a, acc) = 
