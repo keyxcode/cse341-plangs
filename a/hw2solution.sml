@@ -35,14 +35,12 @@ fun get_substitutions2(xss, s) =
    end
 
 fun similar_names(xss, {first=f, last=l, middle=m}) =
-   let 
+   let
       val first_name_substitutions = get_substitutions1(xss, f)
       fun replaced_names(subs, acc) = 
          case subs of
          [] => acc
-         | sub::subs' => let 
-                        in replaced_names(subs', acc @ [{first=sub, last=l, middle=m}])
-                        end
+         | sub::subs' => replaced_names(subs', acc @ [{first=sub, last=l, middle=m}])
    in {first=f, last=l, middle=m}::replaced_names(first_name_substitutions, [])
    end
 
