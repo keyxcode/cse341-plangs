@@ -23,17 +23,15 @@ fun get_substitutions1(xss, s) =
                      NONE => get_substitutions1(xss', s)
                      | SOME(ys) => ys @ get_substitutions1(xss', s)
 
-fun get_substitutions2(xss, a) =
-   let fun accumulate(xss, a, acc) = 
+fun get_substitutions2(xss, s) =
+   let fun accumulate(xss, acc) = 
       case xss of
       [] => acc
-      | xs::xss' => let val substitutions = all_except_option(a, xs)
-                     in case substitutions of
-                        NONE => accumulate(xss', a, acc)
-                        | SOME(ys) => accumulate(xss', a, acc @ ys)
-                     end
+      | xs::xss' => case all_except_option(s, xs) of
+                     NONE => accumulate(xss', acc)
+                     | SOME(ys) => accumulate(xss', acc @ ys)
    in
-      accumulate(xss, a, [])
+      accumulate(xss, [])
    end
 
 fun similar_names(xss, {first=f, last=l, middle=m}) =
