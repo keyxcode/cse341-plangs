@@ -7,16 +7,14 @@ fun same_string(s1 : string, s2 : string) =
     s1 = s2
 
 (* put your solutions for problem 1 here *)
-fun all_except_option(a, xs) =
+fun all_except_option(s, xs) =
    case xs of
       [] => NONE
-      | x::xs' => if same_string(a, x)
+      | x::xs' => if same_string(s, x)
                   then SOME(xs')
-                  else let val tail_option = all_except_option(a, xs')
-                        in case tail_option of
-                           NONE => NONE
-                           | SOME(ys) => SOME(x::ys)
-                        end
+                  else case all_except_option(s, xs') of
+                        NONE => NONE
+                        | SOME(ys) => SOME(x::ys)
 
 fun get_substitutions1(xss, a) =
    case xss of
