@@ -107,22 +107,22 @@ fun score(cs, goal) =
       end
    end
 
-fun officiate(cs, ms, g) =
+fun officiate(cs, ms, goal) =
    let
-     fun helper(cards, moves, helds, goal) =
+     fun helper(cards, moves, helds) =
          case moves of
          [] => score(helds, goal)
-         | Discard c::moves' => 
-            let val remainings = remove_card(cards, c, IllegalMove)
-            in helper(cards, moves', remainings, goal)
+         | (Discard c)::moves' => 
+            let val new_helds = remove_card(cards, c, IllegalMove)
+            in helper(cards, moves', new_helds)
             end
          | Draw::moves' =>
             case cards of
             [] => score(helds, goal)
             | c::cards' => 
-               if sum_cards(helds) > goal
-               then score(helds, goal)
-               else helper(cards', moves', c::helds, goal)
+               if sum_cards(c::helds) > goal
+               then score(c::helds, goal)
+               else helper(cards', moves', c::helds)
    in
-     helper(cs, ms, [], g)
+     helper(cs, ms, [])
    end
