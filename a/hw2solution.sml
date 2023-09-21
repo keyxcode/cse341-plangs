@@ -113,7 +113,7 @@ fun officiate(cs, ms, goal) =
          case moves of
          [] => score(helds, goal)
          | (Discard c)::moves' => 
-            let val new_helds = remove_card(cards, c, IllegalMove)
+            let val new_helds = remove_card(helds, c, IllegalMove)
             in helper(cards, moves', new_helds)
             end
          | Draw::moves' =>

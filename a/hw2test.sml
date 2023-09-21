@@ -40,6 +40,7 @@ val test10 = score ([(Hearts, Num 2),(Clubs, Num 4)],10) = 4
 val test10b = score ([(Hearts, Num 2),(Diamonds, Num 4)],10) = 2
 
 val test11 = officiate ([(Hearts, Num 2),(Clubs, Num 4)],[Draw], 15) = 6
+val test11b = officiate([(Hearts, Num 2), (Clubs, Num 4)], [Draw, Draw, Discard(Clubs, Num 4)], 15) = 6
 
 val test12 = officiate ([(Clubs,Ace),(Spades,Ace),(Clubs,Ace),(Spades,Ace)],
                         [Draw,Draw,Draw,Draw,Draw],
