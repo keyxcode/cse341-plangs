@@ -23,7 +23,7 @@ fun g f1 f2 p =
 	  | Variable x        => f2 x
 	  | TupleP ps         => List.foldl (fn (p,i) => (r p) + i) 0 ps
 	  | ConstructorP(_,p) => r p
-	  | _                 => 0
+	  | _                 => 0	
     end *)
 
 (**** for the challenge problem only ****)
@@ -38,6 +38,6 @@ fun g f1 f2 p =
 
 fun only_capitals xs = List.filter (fn s => Char.isUpper(String.sub(s, 0))) xs
 
-fun longest_string1 xs = List.foldl (fn (a, b) => if String.size(a) > String.size(b) then a else b) "" xs 
+fun longest_string1 xs = List.foldl (fn (acc, num) => if String.size(acc) <= String.size(num) then num else acc) "" xs 
 
-fun longest_string2 xs = List.foldl (fn (a, b) => if String.size(a) >= String.size(b) then a else b) "" xs 
+fun longest_string2 xs = List.foldl (fn (acc, num) => if String.size(acc) < String.size(num) then num else acc) "" xs 
