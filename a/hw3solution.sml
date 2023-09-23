@@ -1,6 +1,6 @@
 (* Coursera Programming Languages, Homework 3, Provided Code *)
 
-exception NoAnswer
+(* exception NoAnswer
 
 datatype pattern = Wildcard
 		 | Variable of string
@@ -24,7 +24,7 @@ fun g f1 f2 p =
 	  | TupleP ps         => List.foldl (fn (p,i) => (r p) + i) 0 ps
 	  | ConstructorP(_,p) => r p
 	  | _                 => 0
-    end
+    end *)
 
 (**** for the challenge problem only ****)
 
@@ -35,3 +35,5 @@ fun g f1 f2 p =
 	     | Datatype of string *)
 
 (**** you can put all your code here ****)
+
+fun only_capitals xs = List.filter (fn s => Char.isUpper(String.sub(s, 0))) xs
