@@ -7,12 +7,15 @@ use "hw3solution.sml";
 
 val test1 = only_capitals ["A","B","C"] = ["A","B","C"]
 
-val test2 = longest_string1 ["A","bc","C"]
-val test2b = longest_string1 ["A","bc", "cd", "C"]
+val test2 = longest_string1 ["A","bc","C"] = "bc"
+val test2b = longest_string1 ["A", "bc", "cd", "C"] = "bc"
+val test2c = longest_string1 ["A", "ab", "bc", "cd", "C"] = "ab"
 
-(* val test3 = longest_string2 ["A","bc","C"] = "bc"
+val test3 = longest_string2 ["A","bc","C"] = "bc"
+val test3b = longest_string2 ["A","bc", "cd", "C"] = "cd"
+val test3c = longest_string2 ["A", "ab", "bc", "cd", "C"] = "cd"
 
-val test4a = longest_string3 ["A","bc","C"] = "bc"
+(* val test4a = longest_string3 ["A","bc","C"] = "bc"
 
 val test4b = longest_string4 ["A","B","C"] = "C"
 
