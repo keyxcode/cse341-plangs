@@ -15,11 +15,15 @@ val test3 = longest_string2 ["A","bc","C"] = "bc"
 val test3b = longest_string2 ["A","bc", "cd", "C"] = "cd"
 val test3c = longest_string2 ["A", "ab", "bc", "cd", "C"] = "cd"
 
-(* val test4a = longest_string3 ["A","bc","C"] = "bc" *)
+val test4a = longest_string3 ["A","bc","C"] = "bc"
+val test4b = longest_string3 ["A", "bc", "cd", "C"] = "bc"
+val test4c = longest_string3 ["A", "ab", "bc", "cd", "C"] = "ab"
 
-(* val test4b = longest_string4 ["A","B","C"] = "C"
+val test4d = longest_string4 ["A","B","C"] = "C"
+val test4e = longest_string4 ["A","bc", "cd", "C"] = "cd"
+val test4f = longest_string4 ["A", "ab", "bc", "cd", "C"] = "cd"
 
-val test5 = longest_capitalized ["A","bc","C"] = "A"
+(* val test5 = longest_capitalized ["A","bc","C"] = "A"
 
 val test6 = rev_string "abc" = "cba"
 

@@ -43,8 +43,8 @@ fun longest_string1 xs = List.foldl (fn (str, acc) => if String.size(str) > Stri
 fun longest_string2 xs = List.foldl (fn (str, acc) => if String.size(str) >= String.size(acc)  then str else acc) "" xs 
 
 fun longest_string_helper condition xs = 
-	List.foldl (fn (acc, num) => if condition(String.size(acc), String.size(num)) then num else acc) "" xs
+	List.foldl (fn (str, acc) => if condition(String.size(str), String.size(acc)) then str else acc) "" xs
 
-(* val longest_string3 xs = longest_string_helper *)
+val longest_string3 = longest_string_helper (fn (x, y) => x > y)
 
-(* fun longest_string4 xs = List.foldl (fn (acc, num) => if String.size(acc) < String.size(num) then num else acc) "" xs  *)
+val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
