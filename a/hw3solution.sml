@@ -48,3 +48,5 @@ fun longest_string_helper condition xs =
 val longest_string3 = longest_string_helper (fn (x, y) => x > y)
 
 val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
+
+val longest_capitalized = (longest_string3 o only_capitals)
