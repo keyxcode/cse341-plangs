@@ -38,9 +38,9 @@ fun g f1 f2 p =
 
 fun only_capitals xs = List.filter (fn s => Char.isUpper(String.sub(s, 0))) xs
 
-fun longest_string1 xs = List.foldl (fn (acc, num) => if String.size(acc) <= String.size(num) then num else acc) "" xs 
+fun longest_string1 xs = List.foldl (fn (str, acc) => if String.size(str) > String.size(acc)  then str else acc) "" xs 
 
-fun longest_string2 xs = List.foldl (fn (acc, num) => if String.size(acc) < String.size(num) then num else acc) "" xs 
+fun longest_string2 xs = List.foldl (fn (str, acc) => if String.size(str) >= String.size(acc)  then str else acc) "" xs 
 
 (* val sorted3 = fn x => fn y => fn z => z >= y andalso y >= x *)
 
