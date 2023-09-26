@@ -59,3 +59,14 @@ fun first_answer process xs =
 	| x::xs' => case process x of
 				SOME v => v
 				| NONE => first_answer process xs'
+
+fun all_answers process xs =
+	let fun helper ys acc =
+		case (ys, acc) of
+		([], _) => acc
+		| (y::ys', SOME v) => (case process y of
+								SOME t => helper ys' (SOME (v @ t))
+								| NONE => NONE)
+		| _ => NONE
+	in helper xs (SOME [])
+	end
