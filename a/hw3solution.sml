@@ -2,7 +2,7 @@
 
 exception NoAnswer
 
-(* datatype pattern = Wildcard
+datatype pattern = Wildcard
 		 | Variable of string
 		 | UnitP
 		 | ConstP of int
@@ -24,7 +24,7 @@ fun g f1 f2 p =
 	  | TupleP ps         => List.foldl (fn (p,i) => (r p) + i) 0 ps
 	  | ConstructorP(_,p) => r p
 	  | _                 => 0	
-    end *)
+    end
 
 (**** for the challenge problem only ****)
 
@@ -70,3 +70,5 @@ fun all_answers process xs =
 		| _ => NONE
 	in helper xs (SOME [])
 	end
+
+val count_wildcards = g (fn _ => 1) (fn _ => 0)
