@@ -53,18 +53,18 @@ val longest_capitalized = (longest_string3 o only_capitals)
 
 val rev_string = (String.implode o List.rev o String.explode)
 
-fun first_answer process xs =
+fun first_answer f xs =
 	case xs of
 	[] => raise NoAnswer
-	| x::xs' => case process x of
+	| x::xs' => case f x of
 				SOME v => v
-				| NONE => first_answer process xs'
+				| NONE => first_answer f xs'
 
-fun all_answers process xs =
+fun all_answers f xs =
 	let fun helper ys acc =
 		case (ys, acc) of
 		([], _) => acc
-		| (y::ys', SOME v) => (case process y of
+		| (y::ys', SOME v) => (case f y of
 								SOME t => helper ys' (SOME (v @ t))
 								| NONE => NONE)
 		| _ => NONE
@@ -73,4 +73,6 @@ fun all_answers process xs =
 
 val count_wildcards = g (fn _ => 1) (fn _ => 0)
 
-val count_wild_and_variable_lengths = g (fn _ => 1) (fn x => String.size(x))
+val count_wild_and_variable_lengths = g (fn _ => 1) String.size
+
+val count_some_var = g 
