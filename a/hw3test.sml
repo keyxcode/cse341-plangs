@@ -44,6 +44,6 @@ val test10c = check_pat (ConstructorP ("SOME", TupleP [Variable "x", ConstP 3]))
 val test10d = check_pat (ConstructorP ("SOME", TupleP [Variable "x", Variable "y", ConstP 3])) = true
 val test10e = check_pat (ConstructorP ("SOME", TupleP [Variable "x", Variable "x", ConstP 3])) = false
 
-(* val test11 = match (Const(1), UnitP) = NONE
+val test11 = match (Const(1), UnitP) = NONE
 
-val test12 = first_match Unit [UnitP] = SOME [] *)
+(* val test12 = first_match Unit [UnitP] = SOME [] *)
