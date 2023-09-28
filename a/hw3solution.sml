@@ -85,5 +85,12 @@ fun check_pat p =
 		| TupleP ps => List.foldl (fn (p, acc) => acc @ (strings_in_pattern p) ) [] ps
 		| ConstructorP (s, p) => strings_in_pattern p
 		| _ => []
-	in strings_in_pattern p
+
+		fun is_distinct xs =
+		case xs of
+		[] => true
+		| x :: xs' => if List.exists (fn item => item = x) xs'
+						then false
+						else is_distinct xs'
+	in is_distinct (strings_in_pattern p)
 	end

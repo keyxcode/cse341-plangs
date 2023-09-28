@@ -38,10 +38,11 @@ val test9b = count_wild_and_variable_lengths (Variable("ab cd")) = 5
 val test9c = count_some_var ("x", Variable("x")) = 1
 val test9c2 = count_some_var ("xyz", TupleP [Variable("xyz"), Variable("abc"), Variable("xyz")]) = 2
 
-val test10 = check_pat (Variable("x")) = ["x"]
-val test10b = check_pat (ConstructorP ("SOME", Variable "x")) = ["x"]
-val test10c = check_pat (ConstructorP ("SOME", TupleP [Variable "x", ConstP 3])) = ["x"]
-val test10d = check_pat (ConstructorP ("SOME", TupleP [Variable "x", Variable "y", ConstP 3])) = ["x", "y"]
+val test10 = check_pat (Variable("x")) = true
+val test10b = check_pat (ConstructorP ("SOME", Variable "x")) = true
+val test10c = check_pat (ConstructorP ("SOME", TupleP [Variable "x", ConstP 3])) = true
+val test10d = check_pat (ConstructorP ("SOME", TupleP [Variable "x", Variable "y", ConstP 3])) = true
+val test10e = check_pat (ConstructorP ("SOME", TupleP [Variable "x", Variable "x", ConstP 3])) = false
 
 (* val test11 = match (Const(1), UnitP) = NONE
 
