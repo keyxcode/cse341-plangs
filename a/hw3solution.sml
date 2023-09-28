@@ -76,3 +76,14 @@ val count_wildcards = g (fn _ => 1) (fn _ => 0)
 val count_wild_and_variable_lengths = g (fn _ => 1) String.size
 
 val count_some_var = fn (s, p) => g (fn _ => 0) (fn x => if String.isSubstring x s then 1 else 0) p
+
+fun check_pat p = 
+	let
+		fun strings_in_pattern pattern =
+		case pattern of
+		Variable x => [x]
+		| TupleP ps => List.foldl (fn (p, acc) => acc @ (strings_in_pattern p) ) [] ps
+		| ConstructorP (s, p) => strings_in_pattern p
+		| _ => []
+	in strings_in_pattern p
+	end
