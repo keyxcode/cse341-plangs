@@ -48,4 +48,4 @@ val test11 = match (Const(1), UnitP) = NONE
 val test11b = match ((Tuple [Const 3]), (TupleP [ConstP 3])) = SOME []
 val test11c = match ((Tuple [Const 3]), (TupleP [Variable "x"])) = SOME [("x",Const 3)]
 
-(* val test12 = first_match Unit [UnitP] = SOME [] *)
+val test12 = first_match Unit [UnitP] = SOME []
