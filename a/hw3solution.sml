@@ -36,14 +36,14 @@ fun g f1 f2 p =
 
 (**** you can put all your code here ****)
 
-fun only_capitals xs = List.filter (fn s => Char.isUpper(String.sub(s, 0))) xs
+val only_capitals = List.filter (fn s => Char.isUpper(String.sub(s, 0)))
 
-fun longest_string1 xs = List.foldl (fn (str, acc) => if String.size(str) > String.size(acc)  then str else acc) "" xs 
+val longest_string1 = List.foldl (fn (str, acc) => if String.size(str) > String.size(acc)  then str else acc) "" 
 
-fun longest_string2 xs = List.foldl (fn (str, acc) => if String.size(str) >= String.size(acc)  then str else acc) "" xs 
+val longest_string2 = List.foldl (fn (str, acc) => if String.size(str) >= String.size(acc)  then str else acc) "" 
 
-fun longest_string_helper condition xs = 
-	List.foldl (fn (str, acc) => if condition(String.size(str), String.size(acc)) then str else acc) "" xs
+fun longest_string_helper condition = 
+	List.foldl (fn (str, acc) => if condition(String.size(str), String.size(acc)) then str else acc) ""
 
 val longest_string3 = longest_string_helper (fn (x, y) => x > y)
 
