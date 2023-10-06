@@ -25,8 +25,8 @@
                   (list "dan" "dog" "curry" "dog2") 
                   ".jpg") '("dan.jpg" "dog.jpg" "curry.jpg" "dog2.jpg") "string-append-map test")
    
-  ;  ; list-nth-mod test
-  ;  (check-equal? (list-nth-mod (list 0 1 2 3 4) 2) 2 "list-nth-mod test")
+   ; list-nth-mod test
+   (check-equal? (list-nth-mod (list 0 1 2 3 4) 2) 2 "list-nth-mod test")
    
   ;  ; stream-for-n-steps test
   ;  (check-equal? (stream-for-n-steps ones 2) (list 1 1) "stream-for-n-steps test")
