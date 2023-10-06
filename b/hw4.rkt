@@ -8,3 +8,7 @@
     (if (> low high)
         null
         (cons low (sequence (+ low stride) high stride))))
+
+(define (string-append-map xs suffix)
+    (map (lambda (x) (string-append x suffix)) xs))
+
