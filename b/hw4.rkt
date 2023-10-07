@@ -17,3 +17,8 @@
         [(null? xs) (error "list-nth-mod: empty list")]
         [#t (let ([i (remainder n (length xs))]) 
             (car(list-tail xs i)))]))
+
+(define (stream-for-n-steps s n)
+    (cond [(= n 0) null]
+        [#t (let ([eval_s (s)])
+            (cons (car eval_s) (stream-for-n-steps (cdr eval_s) (- n 1))))]))
