@@ -22,3 +22,13 @@
     (cond [(= n 0) null]
         [#t (let ([eval_s (s)])
             (cons (car eval_s) (stream-for-n-steps (cdr eval_s) (- n 1))))]))
+
+(define funny-number-stream
+    (letrec ([f (lambda (x) (let ([num (if (= 0 (remainder x 5))
+                                            (- 0 x)
+                                            x)]) 
+                            (cons num (lambda () (f (+ x 1))))))])
+    (lambda () (f 1))))
+
+
+
