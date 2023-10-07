@@ -34,3 +34,6 @@
     (letrec ([f (lambda (x) (let ([data (if (= 0 (remainder x 2)) "dan.jpg" "dog.jpg")]) 
                             (cons data (lambda () (f (+ x 1))))))])
     (lambda () (f 0))))
+
+(define (stream-add-zero s)
+    (lambda () (cons (cons 0 (car(s))) (stream-add-zero (cdr(s))))))
