@@ -30,5 +30,7 @@
                             (cons num (lambda () (f (+ x 1))))))])
     (lambda () (f 1))))
 
-
-
+(define dan-then-dog 
+    (letrec ([f (lambda (x) (let ([data (if (= 0 (remainder x 2)) "dan.jpg" "dog.jpg")]) 
+                            (cons data (lambda () (f (+ x 1))))))])
+    (lambda () (f 0))))
