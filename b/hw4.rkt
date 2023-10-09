@@ -37,3 +37,11 @@
 
 (define (stream-add-zero s)
     (lambda () (cons (cons 0 (car(s))) (stream-add-zero (cdr(s))))))
+
+(define (cycle-lists xs ys)
+    (letrec ([f (lambda (n) (let (
+        [x-ith (remainder n (length xs))]
+        [y-ith (remainder n (length ys))]
+    ) (cons (cons (list-nth-mod xs x-ith) (list-nth-mod ys y-ith)) (lambda () (f (+ n 1))))
+    ))])
+    (lambda () (f 0))))
