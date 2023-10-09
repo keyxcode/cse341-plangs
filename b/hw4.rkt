@@ -45,3 +45,14 @@
     ) (cons (cons (list-nth-mod xs x-ith) (list-nth-mod ys y-ith)) (lambda () (f (+ n 1))))
     ))])
     (lambda () (f 0))))
+
+(define (vector-assoc v vec)
+    (letrec ([f (lambda (n) 
+        (cond 
+            [(> n (- (vector-length vec) 1)) #f]
+            [(and (pair? (vector-ref vec n)) (equal? v (car (vector-ref vec n)))) (vector-ref vec n)]
+            [#t (f (+ n 1))]
+        ))])
+    (f 0)))
+
+(vector-assoc 4 (vector (cons 4 1) (cons 3 1) (cons 4 1) (cons 5 1)))
