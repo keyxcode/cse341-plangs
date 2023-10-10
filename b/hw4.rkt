@@ -55,4 +55,16 @@
         ))])
     (f 0)))
 
-(vector-assoc 4 (vector (cons 4 1) (cons 3 1) (cons 4 1) (cons 5 1)))
+(define (cached-assoc xs n)
+    (letrec([memo (make-vector n #f)]
+            [idx 0]
+            [f (lambda (v)
+                (let ([ans (vector-assoc v memo)])
+                    (if ans
+                        (cdr ans)
+                        (let ([new-ans (assoc v xs)])
+                            (begin
+                            (vector-set! memo idx new-ans)
+                            (set! idx (remainder (+ idx 1) n))
+                            new-ans)))))])
+    f))
