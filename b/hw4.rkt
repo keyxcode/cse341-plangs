@@ -61,7 +61,7 @@
             [f (lambda (v)
                 (let ([ans (vector-assoc v memo)])
                     (if ans
-                        (cdr ans)
+                        ans
                         (let ([new-ans (assoc v xs)])
                             (begin
                             (vector-set! memo idx new-ans)
