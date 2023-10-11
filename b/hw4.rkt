@@ -16,12 +16,12 @@
     (cond [(< n 0) (error "list-nth-mod: negative number")]
         [(null? xs) (error "list-nth-mod: empty list")]
         [#t (let ([i (remainder n (length xs))]) 
-            (car(list-tail xs i)))]))
+            (car (list-tail xs i)))]))
 
 (define (stream-for-n-steps s n)
     (cond [(= n 0) null]
-        [#t (let ([eval_s (s)])
-            (cons (car eval_s) (stream-for-n-steps (cdr eval_s) (- n 1))))]))
+        [#t (let ([eval-s (s)])
+            (cons (car eval-s) (stream-for-n-steps (cdr eval-s) (- n 1))))]))
 
 (define funny-number-stream
     (letrec ([f (lambda (x) (let ([num (if (= 0 (remainder x 5))
@@ -36,7 +36,9 @@
     (lambda () (f 0))))
 
 (define (stream-add-zero s)
-    (lambda () (cons (cons 0 (car(s))) (stream-add-zero (cdr(s))))))
+    (lambda () 
+        (let ([eval-s (s)])
+        (cons (cons 0 (car eval-s)) (stream-add-zero (cdr eval-s))))))
 
 (define (cycle-lists xs ys)
     (letrec ([f (lambda (n) (let (
