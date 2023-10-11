@@ -41,21 +41,20 @@
         (cons (cons 0 (car eval-s)) (stream-add-zero (cdr eval-s))))))
 
 (define (cycle-lists xs ys)
-    (letrec ([f (lambda (n) (let (
-        [x-ith (remainder n (length xs))]
-        [y-ith (remainder n (length ys))]
-    ) (cons (cons (list-nth-mod xs x-ith) (list-nth-mod ys y-ith)) (lambda () (f (+ n 1))))
-    ))])
-    (lambda () (f 0))))
+    (letrec ([f (lambda (n) 
+                (cons (cons (list-nth-mod xs n) 
+                            (list-nth-mod ys n)) 
+                        (lambda () (f (+ n 1)))))])
+        (lambda () (f 0))))
 
 (define (vector-assoc v vec)
     (letrec ([f (lambda (n) 
-        (cond 
-            [(> n (- (vector-length vec) 1)) #f]
-            [(and (pair? (vector-ref vec n)) (equal? v (car (vector-ref vec n)))) (vector-ref vec n)]
-            [#t (f (+ n 1))]
-        ))])
-    (f 0)))
+                (cond 
+                    [(> n (- (vector-length vec) 1)) #f]
+                    [(and (pair? (vector-ref vec n)) (equal? v (car (vector-ref vec n)))) (vector-ref vec n)]
+                    [#t (f (+ n 1))]
+                ))])
+        (f 0)))
 
 (define (cached-assoc xs n)
     (letrec([memo (make-vector n #f)]
