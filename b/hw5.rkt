@@ -58,12 +58,18 @@
                        (int-num v2)))
                (error "MUPL addition applied to non-number")))]
         ;; CHANGE add more cases here
+        [(int? e) e]
+        [(closure? e) e]
+        [(aunit? e) e]
+        [(apair? e) e]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 ;; Do NOT change
 (define (eval-exp e)
   (eval-under-env e null))
         
+(eval-exp (int 17)) 
+
 ;; Problem 3
 
 (define (ifaunit e1 e2 e3) "CHANGE")
