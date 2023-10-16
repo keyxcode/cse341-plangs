@@ -76,6 +76,12 @@
          (let ([v1 (eval-under-env (apair-e1 e) env)]
                [v2 (eval-under-env (apair-e2 e) env)])
                (apair v1 v2))]
+        [(fst? e) 
+         (let ([v (eval-under-env (fst-e e) env)])
+               (if (apair? v) (apair-e1 v) (error (format "MUPL fst applied to non-apair"))))]
+        [(snd e) 
+         (let ([v (eval-under-env (snd-e e) env)])
+               (if (apair? v) (apair-e2 v) (error (format "MUPL snd applied to non-apair"))))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 (call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1))
