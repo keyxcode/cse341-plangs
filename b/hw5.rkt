@@ -62,6 +62,7 @@
         [(closure? e) e]
         [(aunit? e) e]
         [(apair? e) e]
+        [(fun? e) (closure env e)]
         [(ifgreater? e) 
          (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
                [v2 (eval-under-env (ifgreater-e2 e) env)])
