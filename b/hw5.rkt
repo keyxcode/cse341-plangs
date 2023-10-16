@@ -28,12 +28,15 @@
     (aunit)
     (apair (car rlist) (racketlist->mupllist (cdr rlist)))))
 
-; (define (mupllist->racketlist mlist)  mlist)
+(define (mupllist->racketlist mlist)
+  (if (aunit? mlist)
+    null
+    (cons (apair-e1 mlist) (mupllist->racketlist (apair-e2 mlist)))))
 
 ;; Problem 2
 
 ;; lookup a variable in an environment
-;; Do NOT change this function
+;; Do NOT change this function  
 (define (envlookup env str)
   (cond [(null? env) (error "unbound variable during evaluation" str)]
         [(equal? (car (car env)) str) (cdr (car env))]
