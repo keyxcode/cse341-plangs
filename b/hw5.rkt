@@ -61,7 +61,6 @@
         [(int? e) e]
         [(closure? e) e]
         [(aunit? e) e]
-        [(apair? e) e]
         [(fun? e) (closure env e)]
         [(ifgreater? e) 
          (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
@@ -73,7 +72,13 @@
         [(mlet? e)
          (let ([v (eval-under-env (mlet-e e) env)])
             (eval-under-env (mlet-body e) (cons (cons (mlet-var e) v) env)))]
+        [(apair? e) 
+         (let ([v1 (eval-under-env (apair-e1 e) env)]
+               [v2 (eval-under-env (apair-e2 e) env)])
+               (apair v1 v2))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
+
+(call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1))
 
 ;; Do NOT change
 (define (eval-exp e)
