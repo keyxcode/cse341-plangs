@@ -72,6 +72,19 @@
         [(mlet? e)
          (let ([v (eval-under-env (mlet-e e) env)])
             (eval-under-env (mlet-body e) (cons (cons (mlet-var e) v) env)))]
+        [(call? e)
+         (let ([funexp (eval-under-env (call-funexp e) env)]
+               [actual (eval-under-env (call-actual e) env)])
+            (if (not (closure? funexp))
+                (error "cannot call a non-closure")
+                (let* ([the-fun (closure-fun funexp)]
+                       [the-env (closure-env funexp)]
+                       [var-binding (cons (fun-formal the-fun) actual)]
+                       [fun-binding (cons (fun-nameopt the-fun) funexp)]
+                       [new-env (if (fun-nameopt the-fun) 
+                                    (cons fun-binding (cons var-binding the-env))
+                                    (cons var-binding the-env))])
+                       (eval-under-env (fun-body the-fun) new-env))))]
         [(apair? e) 
          (let ([v1 (eval-under-env (apair-e1 e) env)]
                [v2 (eval-under-env (apair-e2 e) env)])
@@ -87,13 +100,9 @@
                (if (aunit? v) (int 1) (int 0)))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
-(call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1))
-
 ;; Do NOT change
 (define (eval-exp e)
   (eval-under-env e null))
-        
-(eval-exp (int 17)) 
 
 ;; Problem 3
 
