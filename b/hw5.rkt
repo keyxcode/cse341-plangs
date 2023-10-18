@@ -108,7 +108,10 @@
 
 (define (ifaunit e1 e2 e3) (if (isaunit? e1) e2 e3))
 
-(define (mlet* lstlst e2) "CHANGE")
+(define (mlet* lstlst e2)
+  (if (null? lstlst)
+       e2
+       (mlet (car (car lstlst)) (cdr (car lstlst)) (mlet* (cdr lstlst) e2))))
 
 (define (ifeq e1 e2 e3 e4) "CHANGE")
 
