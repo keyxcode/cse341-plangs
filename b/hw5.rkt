@@ -108,7 +108,7 @@
 
 ;; Problem 3
 
-(define (ifaunit e1 e2 e3) (if (isaunit? e1) e2 e3))
+(define (ifaunit e1 e2 e3) (ifgreater (isaunit e1) (int 0) e2 e3))
 
 (define (mlet* lstlst e2)
   (if (null? lstlst)
@@ -123,7 +123,13 @@
 
 ;; Problem 4
 
-(define mupl-map "CHANGE")
+(define mupl-map
+  (fun #f "f-action" 
+    (fun "f-map" "lst" 
+      (ifaunit (var "lst")
+               (aunit)
+               (apair (call (var "f-action") (fst (var "lst")))
+                      (call (var "f-map") (snd (var "lst"))))))))
 
 (define mupl-mapAddN 
   (mlet "map" mupl-map
