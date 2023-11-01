@@ -21,7 +21,8 @@ class MyBoard < Board
   end
 
   def rotate_180
-    puts "180"
+    rotate_clockwise
+    rotate_clockwise
     draw
   end
 end
