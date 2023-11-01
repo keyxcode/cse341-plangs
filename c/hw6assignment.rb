@@ -10,14 +10,17 @@ class MyPiece < Piece
   
   end
   
-  class MyBoard < Board
-    # your enhancements here
-  
+class MyBoard < Board
+  # your enhancements here
+  def initialize (game)
+    super()
+    @current_block = MyPiece.next_piece(self)
   end
-  
-  class MyTetris < Tetris
-    # your enhancements here
-  
-  end
+end
+
+class MyTetris < Tetris
+  # your enhancements here
+
+end
   
   
