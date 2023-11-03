@@ -5,8 +5,25 @@
 
 class MyPiece < Piece
     # The constant All_My_Pieces should be declared here
-  
+    All_My_Pieces = [[[[0, 0], [-1, 0], [1, 0], [-2, 0], [2, 0]], # long long (only needs two)
+                      [[0, 0], [0, -1], [0, 1], [0, -2], [0, 2]]],
+                      rotations([[0, 0], [-1, 0], [1, 0], [0, -1], [-1, -1]]), # fat L
+                      rotations([[0, 0], [1, 0], [0, -1]]), # smol L
+                  ] + All_Pieces
+
     # your enhancements here
+    def initialize (point_array, board)
+      super(point_array, board)
+      @num_pieces = point_array[0].length
+    end
+
+    def num_pieces
+      @num_pieces
+    end
+
+    def self.next_piece (board)
+      MyPiece.new(All_My_Pieces.sample, board)
+    end
   
   end
   
@@ -18,6 +35,26 @@ class MyBoard < Board
     @score = 0
     @game = game
     @delay = 500
+  end
+
+  def next_piece
+    @current_block = MyPiece.next_piece(self)
+    @current_pos = nil
+  end
+
+  def store_current
+    locations = @current_block.current_rotation
+    displacement = @current_block.position
+    num_pieces = @current_block.num_pieces
+    puts num_pieces
+
+    (0..num_pieces - 1).each{|index| 
+      current = locations[index];
+      @grid[current[1]+displacement[1]][current[0]+displacement[0]] = 
+      @current_pos[index]
+    }
+    remove_filled
+    @delay = [@delay - 2, 80].max
   end
 
   def rotate_180
