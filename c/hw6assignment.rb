@@ -62,6 +62,19 @@ class MyBoard < Board
     rotate_clockwise
     draw
   end
+
+  def score=x
+    @score = x
+  end
+
+  def cheat
+    if self.score < 100
+      nil
+    else
+      self.score -= 100
+      puts "cheat"
+    end
+  end
 end
 
 class MyTetris < Tetris
@@ -77,6 +90,7 @@ class MyTetris < Tetris
   def key_bindings
     super()
     @root.bind('u', proc {@board.rotate_180})
+    @root.bind('c', proc {@board.cheat})
   end
 end
   
