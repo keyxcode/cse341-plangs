@@ -24,6 +24,10 @@ class MyPiece < Piece
     def self.next_piece (board)
       MyPiece.new(All_My_Pieces.sample, board)
     end
+
+    def self.cheat_piece (board)
+      MyPiece.new([[0, 0]], board)
+    end
   
   end
   
@@ -35,10 +39,16 @@ class MyBoard < Board
     @score = 0
     @game = game
     @delay = 500
+    @is_cheating=false
   end
 
   def next_piece
-    @current_block = MyPiece.next_piece(self)
+    if !@is_cheating
+      @current_block = MyPiece.next_piece(self) 
+    else
+      @current_block = MyPiece.cheat_piece(self)
+      @is_cheating=false
+    end
     @current_pos = nil
   end
 
@@ -68,11 +78,11 @@ class MyBoard < Board
   end
 
   def cheat
-    if self.score < 100
+    if self.score < 100 || @is_cheating
       nil
     else
       self.score -= 100
-      puts "cheat"
+      @is_cheating = true
     end
   end
 end
