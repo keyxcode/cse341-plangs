@@ -200,14 +200,14 @@ fun eval_prog (e,env) =
 (* CHANGE: Add function preprocess_prog of type geom_exp -> geom_exp *)
 fun preprocess_prog (e) =
 	case e of
-	LineSegment (x1, y1, x2, y2) =>
-		if real_close(x1, x2)
-		then (if real_close(y1, y2) 
-			  then Point(x1, y1)
-			  else (if y1 > y2
-			  		then LineSegment (x2, y2, x1, y1)
+	LineSegment (x1start, y1start, x2start, y2start) =>
+		if real_close(x1start, x2start)
+		then (if real_close(y1start, y2start) 
+			  then Point(x1start, y1start)
+			  else (if y1start > y2start
+			  		then LineSegment (x2start, y2start, x1start, y1start)
 					else e))
-		else (if x1 > x2
-			  then LineSegment (x2, y2, x1, y1)
+		else (if x1start > x2start
+			  then LineSegment (x2start, y2start, x1start, y1start)
 			  else e)
 	| _ => e
