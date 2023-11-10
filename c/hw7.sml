@@ -198,24 +198,24 @@ fun eval_prog (e,env) =
       | Intersect(e1,e2) => intersect(eval_prog(e1,env), eval_prog(e2, env))
 (* CHANGE: Add a case for Shift expressions *)
 	  | Shift (dx, dy, e) =>
-	(case e of
+	(case eval_prog (e, env) of
 		 NoPoints => NoPoints
 	   | Point (x, y) => Point (x + dx, y + dy)
 	   | Line (m, b) => Line (m, b + dy - m * dx)
-	   | VerticalLine x => VerticalLine x + dx
-	   | LineSegment (x, y) => LineSegment (x + dx, y + dy))
+	   | VerticalLine x => VerticalLine (x + dx)
+	   | LineSegment (x1, y1, x2, y2) => LineSegment (x1 + dx, y1 + dy, x2 + dx, y2 + dy))
 
 (* CHANGE: Add function preprocess_prog of type geom_exp -> geom_exp *)
 fun preprocess_prog (e) =
 	case e of
-	LineSegment (x1start, y1start, x2start, y2start) =>
-		if real_close(x1start, x2start)
-		then (if real_close(y1start, y2start) 
+	LineSegment (x1start, y1start, x2end, y2end) =>
+		if real_close(x1start, x2end)
+		then (if real_close(y1start, y2end) 
 			  then Point(x1start, y1start)
-			  else (if y1start > y2start
-			  		then LineSegment (x2start, y2start, x1start, y1start)
+			  else (if y1start > y2end
+			  		then LineSegment (x2end, y2end, x1start, y1start)
 					else e))
-		else (if x1start > x2start
-			  then LineSegment (x2start, y2start, x1start, y1start)
+		else (if x1start > x2end
+			  then LineSegment (x2end, y2end, x1start, y1start)
 			  else e)
 	| _ => e
