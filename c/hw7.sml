@@ -20,6 +20,7 @@ datatype geom_exp =
 	 | Let of string * geom_exp * geom_exp (* let s = e1 in e2 *)
 	 | Var of string
 (* CHANGE add shifts for expressions of the form Shift(deltaX, deltaY, exp *)
+	 | Shift of real * real * geom_exp
 
 exception BadProgram of string
 exception Impossible of string
@@ -196,6 +197,13 @@ fun eval_prog (e,env) =
       | Let(s,e1,e2) => eval_prog (e2, ((s, eval_prog(e1,env)) :: env))
       | Intersect(e1,e2) => intersect(eval_prog(e1,env), eval_prog(e2, env))
 (* CHANGE: Add a case for Shift expressions *)
+	  | Shift (dx, dy, e) =>
+	(case e of
+		 NoPoints => NoPoints
+	   | Point (x, y) => Point (x + dx, y + dy)
+	   | Line (m, b) => Line (m, b + dy - m * dx)
+	   | VerticalLine x => VerticalLine x + dx
+	   | LineSegment (x, y) => LineSegment (x + dx, y + dy))
 
 (* CHANGE: Add function preprocess_prog of type geom_exp -> geom_exp *)
 fun preprocess_prog (e) =
