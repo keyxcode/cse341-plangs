@@ -119,6 +119,9 @@ class Point < GeometryValue
     @y = y
   end
 
+  def eval_prog env 
+    self # all values evaluate to self
+  end
   def preprocess_prog
     self # no pre-processing to do here
   end
@@ -133,6 +136,9 @@ class Line < GeometryValue
     @b = b
   end
 
+  def eval_prog env 
+    self # all values evaluate to self
+  end
   def preprocess_prog
     self # no pre-processing to do here
   end
@@ -146,6 +152,9 @@ class VerticalLine < GeometryValue
     @x = x
   end
 
+  def eval_prog env 
+    self # all values evaluate to self
+  end
   def preprocess_prog
     self # no pre-processing to do here
   end
@@ -165,6 +174,9 @@ class LineSegment < GeometryValue
     @y2 = y2
   end
 
+  def eval_prog env 
+    self # all values evaluate to self
+  end
   def preprocess_prog
     if (self.real_close(@x1, @x2))
       if (self.real_close(@y1, @y2))
