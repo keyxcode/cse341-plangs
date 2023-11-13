@@ -227,6 +227,15 @@ class Intersect < GeometryExpression
     @e1 = e1
     @e2 = e2
   end
+
+  def eval_prog env
+    @e1.intersect (@e2)
+  end
+  
+  def preprocess_prog env
+    @e1.preprocess_prog
+    @e2.preprocess_prog
+  end
 end
 
 class Let < GeometryExpression
@@ -240,7 +249,7 @@ class Let < GeometryExpression
   end
 
   def eval_prog env 
-    e2.eval_prog ([s, e1] + env)
+    @e2.eval_prog ([s, e1] + env)
   end
 end
 
@@ -267,6 +276,6 @@ class Shift < GeometryExpression
   end
 
   def eval_prog env 
-    e.shift(dx, dy)
+    @e.shift(dx, dy)
   end
 end
