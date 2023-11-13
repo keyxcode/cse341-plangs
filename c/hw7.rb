@@ -176,13 +176,22 @@ class Line < GeometryValue
     other.intersectLine self
   end
   def intersectPoint p
-    self # intersection with point and no-points is no-points
+    p.intersectLine(self)
   end
   def intersectLine line
-    self # intersection with line and no-points is no-points
+    if self.real_close(@m, line.m)
+      if self.real_close(@b, line.b)
+        self
+      else
+        NoPoints.new
+      end
+    else
+      x = (line.b - @b) / (@m - line.m)
+      y = @m * x + @b
+      Point.new(x, y)
   end
   def intersectVerticalLine vline
-    self # intersection with line and no-points is no-points
+    Point.new(vline.x, @m * vline.x + @b)
   end 
 end
 
