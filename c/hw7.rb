@@ -216,13 +216,17 @@ class VerticalLine < GeometryValue
     other.intersectVerticalLine self
   end
   def intersectPoint p
-    self # intersection with point and no-points is no-points
+    p.intersectVerticalLine(self)
   end
   def intersectLine line
-    self # intersection with line and no-points is no-points
+    line.intersectVerticalLine(self)
   end
   def intersectVerticalLine vline
-    self # intersection with line and no-points is no-points
+    if self.real_close(@x, vline.x)
+      self
+    else
+      NoPoints.new
+    end
   end
 end
 
