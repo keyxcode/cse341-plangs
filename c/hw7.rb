@@ -151,6 +151,17 @@ class Point < GeometryValue
     else
       NoPoints.new
     end
+  end
+  def inbetween(v, end1, end2)
+    (end1 - GeometryExpression::Epsilon <= v and v <= end2 + GeometryExpression::Epsilon)
+    or (end2 - GeometryExpression::Epsilon <= v and v <= end1 + GeometryExpression::Epsilon)
+  end
+  def intersectWithSegmentAsLineResult seg
+    if inbetween(@x, seg.x1, seg.x2) and inbetween(@y, seg.y1, seg.y2)
+      self
+    else
+      NoPoints.new
+    end
   end  
 end
 
@@ -192,7 +203,10 @@ class Line < GeometryValue
   end
   def intersectVerticalLine vline
     Point.new(vline.x, @m * vline.x + @b)
-  end 
+  end
+  def intersectWithSegmentAsLineResult seg
+    self
+  end
 end
 
 class VerticalLine < GeometryValue
@@ -227,6 +241,9 @@ class VerticalLine < GeometryValue
     else
       NoPoints.new
     end
+  end
+  def intersectWithSegmentAsLineResult seg
+    self
   end
 end
 
@@ -271,6 +288,9 @@ class LineSegment < GeometryValue
   end
   def intersect other
     other.intersectLineSegment self
+  end
+  def intersectWithSegmentAsLineResult seg
+    self
   end
 end
 
