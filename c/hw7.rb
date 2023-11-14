@@ -310,8 +310,6 @@ class LineSegment < GeometryValue
       # let segment a start at or to the left of start of segment b
       aXstart, aYstart, aXend, aYend, 
       bXstart, bYstart, bXend, bYend = seg.x1 < self.x1 ? seg1 + seg2 : seg2 + seg1
-      puts("line a", aXstart, aYstart, aXend, aYend)
-      puts("line b", bXstart, bYstart, bXend, bYend)
       if real_close(aXend, bXstart)
         Point.new(aXend, aYend) # just touching
       elsif aXend < bXstart
@@ -337,12 +335,9 @@ class Intersect < GeometryExpression
   end
 
   def eval_prog env
-    self.preprocess_prog
-    @e1.intersect(@e2)
+    @e1.preprocess_prog.eval_prog(env).intersect(@e2.preprocess_prog.eval_prog(env))
   end
   def preprocess_prog
-    @e1 = @e1.preprocess_prog
-    @e2 = @e2.preprocess_prog
     self
   end
 end
@@ -358,7 +353,11 @@ class Let < GeometryExpression
   end
 
   def eval_prog env 
-    @e2.eval_prog([s, e1] + env)
+    new_env = [[@s, @e1.preprocess_prog.eval_prog(env)]] + env
+    @e2.preprocess_prog.eval_prog(new_env)
+  end
+  def preprocess_prog
+    self
   end
 end
 
@@ -373,6 +372,10 @@ class Var < GeometryExpression
     raise "undefined variable" if pr.nil?
     pr[1]
   end
+
+  def preprocess_prog
+    self
+  end
 end
 
 class Shift < GeometryExpression
@@ -385,6 +388,9 @@ class Shift < GeometryExpression
   end
 
   def eval_prog env 
-    @e.shift(dx, dy)
+    @e.preprocess_prog.eval_prog(env).shift(@dx, @dy)
+  end
+  def preprocess_prog
+    self
   end
 end
