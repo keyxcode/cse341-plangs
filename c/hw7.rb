@@ -292,8 +292,8 @@ class LineSegment < GeometryValue
   end
   def intersectWithSegmentAsLineResult seg
     # let segment a start at or below start of segment b
-    seg1 = [seg.x1, seg.x2, seg.y1, seg.y2]
-    seg2 = [self.x1, self.x2, self.y1, self.y2]
+    seg1 = [seg.x1, seg.y1, seg.x2, seg.y2]
+    seg2 = [self.x1, self.y1, self.x2, self.y2]
     if real_close(seg.x1, seg.x2) # the segments are on a vertical line
 			aXstart, aYstart, aXend, aYend, 
       bXstart, bYstart, bXend, bYend = seg.y1 < self.y1 ? seg1 + seg2 : seg2 + seg1
@@ -310,9 +310,12 @@ class LineSegment < GeometryValue
       # let segment a start at or to the left of start of segment b
       aXstart, aYstart, aXend, aYend, 
       bXstart, bYstart, bXend, bYend = seg.x1 < self.x1 ? seg1 + seg2 : seg2 + seg1
-			if real_close(aXend,bXstart)
-        Point.new(aXend,aYend) # just touching
+      puts("line a", aXstart, aYstart, aXend, aYend)
+      puts("line b", bXstart, bYstart, bXend, bYend)
+      if real_close(aXend, bXstart)
+        Point.new(aXend, aYend) # just touching
       elsif aXend < bXstart
+        # puts(aXend < bXstart)
         NoPoints.new # disjoint
       elsif aXend > bXend
         LineSegment.new(bXstart, bYstart, bXend, bYend) # b inside a
@@ -334,11 +337,12 @@ class Intersect < GeometryExpression
   end
 
   def eval_prog env
-    @e1.intersect (@e2)
+    self.preprocess_prog
+    @e1.intersect(@e2)
   end
   def preprocess_prog
-    @e1.preprocess_prog
-    @e2.preprocess_prog
+    @e1 = @e1.preprocess_prog
+    @e2 = @e2.preprocess_prog
     self
   end
 end
@@ -354,7 +358,7 @@ class Let < GeometryExpression
   end
 
   def eval_prog env 
-    @e2.eval_prog ([s, e1] + env)
+    @e2.eval_prog([s, e1] + env)
   end
 end
 
