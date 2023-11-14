@@ -296,7 +296,7 @@ class LineSegment < GeometryValue
     seg2 = [self.x1, self.x2, self.y1, self.y2]
     if real_close(seg.x1, seg.x2) # the segments are on a vertical line
 			aXstart, aYstart, aXend, aYend, 
-      bXstart, bYstart, bXend, bYend = seg1.y1 < seg2.y1 ? seg1 + seg2 : seg2 + seg1
+      bXstart, bYstart, bXend, bYend = seg.y1 < self.y1 ? seg1 + seg2 : seg2 + seg1
       if real_close(aYend, bYstart)
         Point.new(aXend, aYend) # just touching
       elsif aYend < bYstart
@@ -309,7 +309,7 @@ class LineSegment < GeometryValue
     else # the segments are on a (non-vertical) line
       # let segment a start at or to the left of start of segment b
       aXstart, aYstart, aXend, aYend, 
-      bXstart, bYstart, bXend, bYend = seg1.x1 < seg2.x1 ? seg1 + seg2 : seg2 + seg1
+      bXstart, bYstart, bXend, bYend = seg.x1 < self.x1 ? seg1 + seg2 : seg2 + seg1
 			if real_close(aXend,bXstart)
         Point.new(aXend,aYend) # just touching
       elsif aXend < bXstart
@@ -318,6 +318,7 @@ class LineSegment < GeometryValue
         LineSegment.new(bXstart, bYstart, bXend, bYend) # b inside a
       else 
         LineSegment.new(bXstart, bYstart, aXend, aYend) # overlapping
+      end
     end
   end
 end
