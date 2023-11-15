@@ -168,9 +168,14 @@ if not (s1.x1 == TWO and s1.y1 == THREE and s1.x2 == SIX and s1.y2 == 9)
 	puts "Shift should shift e by dx and dy"
 end
 
-# intersect_methods(Point intersect): #<NoMethodError: undefined method `intersectPoint' for LineSegment.new(1.0,1.0,5.0,6.0):LineSegment  Did you mean?  intersectNoPoints> ["/shared/submission/hw.rb:132:in `intersect'"] [error]
-# intersect_methods(LineSegment intersectPoint): LineSegment does not have a public intersectPoint method. [incorrect answer]
-# intersect_methods(Line intersect): #<NoMethodError: undefined method `intersectLine' for LineSegment.new(0.0,3.0,3.0,9.0):LineSegment  Did you mean?  intersect> ["/shared/submission/hw.rb:187:in `intersect'"] [error]
-# intersect_methods(LineSegment intersectLine): LineSegment does not have a public intersectLine method. [incorrect answer]
-# intersect_methods(VerticalLine intersect): #<NoMethodError: undefined method `intersectVerticalLine' for LineSegment.new(3.0,0.0,3.0,-2.0):LineSegment  Did you mean?  intersectLineSegment> ["/shared/submission/hw.rb:231:in `intersect'"] [error]
-# intersect_methods(LineSegment intersectVerticalLine): LineSegment does not have a public intersectVerticalLine method. [incorrect answer]
+intersect_methods(Point intersect): 
+#<NoMethodError: undefined method `intersectPoint' for LineSegment.new(1.0,1.0,5.0,6.0):LineSegment  
+# Did you mean?  intersectNoPoints> ["/shared/submission/hw.rb:132:in `intersect'"] [error]
+
+intersect_methods(Line intersect): 
+#<NoMethodError: undefined method `intersectLine' for LineSegment.new(0.0,3.0,3.0,9.0):LineSegment  
+Did you mean?  intersect> ["/shared/submission/hw.rb:187:in `intersect'"] [error]
+
+intersect_methods(VerticalLine intersect): 
+#<NoMethodError: undefined method `intersectVerticalLine' for LineSegment.new(3.0,0.0,3.0,-2.0):LineSegment  
+Did you mean?  intersectLineSegment> ["/shared/submission/hw.rb:231:in `intersect'"] [error]

@@ -129,7 +129,7 @@ class Point < GeometryValue
     Point.new(@x + dx, @y + dy)
   end
   def intersect other
-    other.intersectPoint self
+    other.intersectPoint(self)
   end
   def intersectPoint p
     if real_close_point(@x, @y, p.x, p.y)
@@ -184,7 +184,7 @@ class Line < GeometryValue
     Line.new(@m, @b + dy - @m * dx)
   end
   def intersect other
-    other.intersectLine self
+    other.intersectLine(self)
   end
   def intersectPoint p
     p.intersectLine(self)
@@ -228,7 +228,7 @@ class VerticalLine < GeometryValue
     VerticalLine.new(@x + dx)
   end
   def intersect other
-    other.intersectVerticalLine self
+    other.intersectVerticalLine(self)
   end
   def intersectPoint p
     p.intersectVerticalLine(self)
@@ -288,7 +288,16 @@ class LineSegment < GeometryValue
     LineSegment.new(@x1 + dx, @y1 + dy, @x2 + dx, @y2 + dy)
   end
   def intersect other
-    other.intersectLineSegment self
+    other.intersectLineSegment(self)
+  end
+  def intersectPoint p
+    p.intersectLineSegment(self)
+  end
+  def intersectLine line
+    line.intersectLineSegment(self)
+  end
+  def intersectVerticalLine vline
+    vline.intersectLineSegment(self)
   end
   def intersectWithSegmentAsLineResult seg
     # let segment a start at or below start of segment b
