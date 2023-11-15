@@ -335,10 +335,10 @@ class Intersect < GeometryExpression
   end
 
   def eval_prog env
-    @e1.preprocess_prog.eval_prog(env).intersect(@e2.preprocess_prog.eval_prog(env))
+    @e1.eval_prog(env).intersect(@e2.eval_prog(env))
   end
   def preprocess_prog
-    self
+    Intersect.new(@e1.preprocess_prog, @e2.preprocess_prog)
   end
 end
 
@@ -357,7 +357,7 @@ class Let < GeometryExpression
     @e2.preprocess_prog.eval_prog(new_env)
   end
   def preprocess_prog
-    self
+    Let.new(@s, @e1.preprocess_prog, @e2.preprocess_prog)
   end
 end
 
@@ -388,9 +388,9 @@ class Shift < GeometryExpression
   end
 
   def eval_prog env 
-    @e.preprocess_prog.eval_prog(env).shift(@dx, @dy)
+    @e.eval_prog(env).shift(@dx, @dy)
   end
   def preprocess_prog
-    self
+    Shift.new(@dx,@dy,@e.preprocess_prog)
   end
 end
