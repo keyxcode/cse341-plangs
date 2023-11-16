@@ -266,22 +266,18 @@ class LineSegment < GeometryValue
     self # all values evaluate to self
   end
   def preprocess_prog
-    if (real_close(@x1, @x2))
-      if (real_close(@y1, @y2))
-        Point.new(@x1, @y1)
-      else
-        if (@y1 > @y2)
-          LineSegment.new(@x2, @y2, @x1, @y1)
-        else
-          self
-        end
-      end
-    else
-      if (@x1 > @x2)
-        LineSegment.new(@x2, @y2, @x1, @y1)
-      else
+    if real_close_point(@x1,@y1,@x2,@y2)
+      Point.new(@x1,@y1)
+    elsif real_close(@x1,@x2)
+      if @y1 > @y2
+        LineSegment.new(@x2,@y2,@x1,@y1)
+      else 
         self
       end
+    elsif @x1 > @x2
+      LineSegment.new(@x2,@y2,@x1,@y1)
+    else
+      self
     end
   end
   def shift(dx,dy)
