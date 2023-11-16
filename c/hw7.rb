@@ -152,17 +152,18 @@ class Point < GeometryValue
       NoPoints.new
     end
   end
-  def inbetween(v, end1, end2)
-    (end1 - GeometryExpression::Epsilon <= v and v <= end2 + GeometryExpression::Epsilon) \
-    or (end2 - GeometryExpression::Epsilon <= v and v <= end1 + GeometryExpression::Epsilon)
-  end
   def intersectWithSegmentAsLineResult seg
     if inbetween(@x, seg.x1, seg.x2) and inbetween(@y, seg.y1, seg.y2)
       self
     else
       NoPoints.new
     end
-  end  
+  end
+  private
+  def inbetween(v, end1, end2)
+    (end1 - GeometryExpression::Epsilon <= v and v <= end2 + GeometryExpression::Epsilon) \
+    or (end2 - GeometryExpression::Epsilon <= v and v <= end1 + GeometryExpression::Epsilon)
+  end
 end
 
 class Line < GeometryValue
@@ -318,7 +319,6 @@ class LineSegment < GeometryValue
       if real_close(aXend, bXstart)
         Point.new(aXend, aYend) # just touching
       elsif aXend < bXstart
-        # puts(aXend < bXstart)
         NoPoints.new # disjoint
       elsif aXend > bXend
         LineSegment.new(bXstart, bYstart, bXend, bYend) # b inside a
